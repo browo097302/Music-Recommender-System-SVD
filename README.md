@@ -53,7 +53,6 @@ Steps to Build the SVD Recommender System
 
 #### Data Preparation:
 
-Normalize the user-song interaction matrix.
 Convert the matrix into a sparse format for efficient computation.
 Apply data splitting techniques to create training, validation, and holdout sets.
 
@@ -66,35 +65,27 @@ Handle computational constraints by limiting k and experimenting with different 
 #### Model Training and Evaluation:
 
 Train the SVD model on the training dataset.
-Evaluate the model on the validation set to assess performance and tune hyperparameters.
-Test the model on the holdout set to measure generalization and avoid overfitting.
+Generate recommendations based on highest listen counts.
 Compute Root Mean Square Error (RMSE) for different k values to analyze the model's accuracy.
+
+#### --- Take steps to improve model ---
+
+#### Get RMSE values over the whole matrix with Truncated SVD
+
+Implement truncated SVD on k value of only 1500 due to memory constraints.
+Get new RMSE on truncated version of model.
 
 #### Cross-Validation Analysis:
 
 Perform k-fold cross-validation to rigorously evaluate model performance.
 Compare RMSE across different folds to assess consistency and identify potential overfitting.
-Analyze the variation in RMSE to determine if specific data subsets impact performance.
 
-#### Hyperparameter Tuning:
+#### Measure new model on holdoutset:
 
-Experiment with different values of k to find the optimal number of latent factors.
-Explore alternative regularization techniques to minimize overfitting.
-Adjust learning rates and other parameters to improve model convergence.
+Test model performance against holdout set as another way of evaulating performance of unseen data. 
 
-#### Recommendations Generation:
+#### Evaluation and Future Improvements:
 
-Use the trained SVD model to generate song recommendations for users.
-Rank songs based on predicted listen counts or scores.
-Filter recommendations above a certain threshold to ensure relevance.
-
-#### Results Interpretation and Visualization:
-
-Visualize the distribution of predicted listen counts versus actual listen counts.
-Analyze the impact of different k values on model performance.
-Create visualizations to illustrate the effectiveness of recommendations.
-
-#### Future Improvements:
-
-Discuss potential improvements, such as handling larger k values, adding more features, or refining the recommendation algorithm.
-Explore techniques to address computational constraints and enhance scalability.
+The model demonstrates good generalization with minimal overfitting, showing only a slight increase in RMSE (+0.3) on unseen data (2.02 on training/validation data vs. 2.34 on holdout data). However, computational constraints prevented testing with higher k values, which could potentially reduce RMSE further.
+Cross-validation results (RMSE of 3.96) indicate inconsistency in model performance across different subsets, likely due to data split challenges, smaller fold sizes, slight overfitting, or noise amplification.
+To improve cross-validation RMSE, further investigation into specific fold performance, alternative regularization techniques, and overcoming computational constraints is recommended.
